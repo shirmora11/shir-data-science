@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/shirmoraidi/git/c/output/5_expressions'
+relocations:     []
+...
