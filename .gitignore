@@ -1,8 +1,15 @@
-
+*.dSYM/
 /output
 a.gitconfig
-node_modules/
-
+a.out
+*.out
+*.o
+*.exe
+*.dSYM/
+.DS_Store
+!*/
+!*.*
+!.gitignore
 .env
 
 .DS_Store
