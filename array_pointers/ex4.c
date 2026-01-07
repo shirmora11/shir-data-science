@@ -29,20 +29,9 @@ char** clone_env_manual(int *count) {
 }
 void print_and_free(char **buffer) {
     if (!buffer) return;
-    
     for (int i = 0; buffer[i] != NULL; i++) {
         printf("%s\n", buffer[i]);
         free(buffer[i]);
     }
     free(buffer); 
-}
-int main() {
-    int count = 0;
-    char **my_buffer = clone_env_manual(&count);
-
-    if (my_buffer) {
-        print_and_free(my_buffer);
-    }
-
-    return 0;
 }

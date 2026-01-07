@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#include <math.h>
+#include "array.h"
 int josephus(int n, int k)
 {
     if (n == 1)
@@ -12,13 +13,13 @@ int josephus(int n, int k)
         return (josephus(n - 1, k) + k - 1) % n + 1;
 }
 
-// Driver Program to test above function
-int main()
-{
-    int n = 0;
-    printf("Enter number of people: ");
-    scanf("%d", &n);
-    int k = 2;
-    printf("The chosen place is %d", josephus(n, k));
-    return 0;
+int josephus_fast(int total_people) {
+    int highest_power_of_2 = 1;
+    while (highest_power_of_2 <= total_people) {
+        highest_power_of_2 *= 2;
+    }
+    highest_power_of_2 /= 2; 
+    int rem_people = total_people - highest_power_of_2;
+    int survivor_pos = (2 * rem_people) + 1;
+    return survivor_pos;
 }

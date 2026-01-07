@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <stdbool.h> // For the bool type
+#include <stdbool.h>
 
-int main() {
+int data_types() {
     printf("--- Standard C Data Type Sizes ---\n");
     printf("Type               Size (bytes)\n");
     printf("-------------------------------\n");
