@@ -1,6 +1,6 @@
 # --- Compiled Binaries & Executables ---
 # This ignores your specific output folder and any executable files
-output/
+/output
 *.exe
 *.out
 my_program
