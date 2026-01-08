@@ -1,0 +1,25 @@
+# --- Compiled Binaries & Executables ---
+# This ignores your specific output folder and any executable files
+output/
+*.exe
+*.out
+my_program
+
+# --- Object Files ---
+# Intermediate files generated during compilation
+*.o
+*.obj
+
+# --- Debug Symbols ---
+# macOS specific debug folders
+*.dSYM/
+
+# --- IDE & Editor Files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- System Files ---
+.DS_Store
+Thumbs.db
