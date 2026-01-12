@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
-
 int main(){
     size_t capacity = 10;
     vector_t* my_vec = vec_create(capacity);
@@ -39,7 +38,6 @@ int main(){
     printf("Vector size: %zu\n", vec_get_size(my_vec));
     printf("Vector capacity: %zu\n", vec_get_capacity(my_vec));
     vec_destroy(my_vec);
-    free(my_vec);
     printf("--- Vector test completed ");
     return 0;
 }
