@@ -1,6 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
+#include <stdio.h>
 typedef struct vector_t {
     size_t allocation;   
     size_t len;          

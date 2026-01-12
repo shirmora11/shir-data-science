@@ -1,7 +1,6 @@
 #include "vector.c"
 #ifndef VECTOR_H
 #define VECTOR_H
-#include <stddef.h>
 vector_t* vec_create(const size_t capacity);                           /// Creates a new vector with the specified initial capacity    
 
 void* vec_get_element(const vector_t* vec, const size_t idx);          /// Retrieves the element at the specified index         
@@ -15,6 +14,6 @@ void vec_set_element(vector_t* vec, const size_t idx, void* element);  /// Sets 
 size_t vec_get_size(const vector_t* vec);                              /// Returns the current number of elements in the vector   
 
 size_t vec_get_capacity(const vector_t* vec);                          /// Returns the current capacity of the vector   
-       
+
 void vec_destroy(vector_t* vec);                                       /// Destroys the vector and frees associated memory           
 #endif
