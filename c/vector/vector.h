@@ -1,6 +1,8 @@
-#include "vector.c"
 #ifndef VECTOR_H
 #define VECTOR_H
+#include <stddef.h>
+typedef struct vector_t vector_t;
+
 vector_t* vec_create(const size_t capacity);                           /// Creates a new vector with the specified initial capacity    
 
 void* vec_get_element(const vector_t* vec, const size_t idx);          /// Retrieves the element at the specified index         
