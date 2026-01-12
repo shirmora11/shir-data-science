@@ -1,39 +1,25 @@
-# Ignore the entire output directory
-output/
-
-# Ignore any files ending in .o (object files)
-*.o
-
-# Ignore common executable extensions
-*.out
-*.exe
-
-# Ignore Mac system files
-.DS_Store# --- VS Code Files ---
-.vscode/
-*.code-workspace
-
-# --- Compilation & Build Outputs ---
-# Ignores your specific output folders
-output/
-c/output/
-bin/
-build/
-
-# Ignores all executable files (even without extensions)
+# --- Compiled Binaries & Executables ---
+# This ignores your specific output folder and any executable files
+/output
 *.exe
 *.out
-*.app
+my_program
 
-# --- Debugging Artifacts ---
-# macOS creates .dSYM folders when you use the -g flag for debugging
-*.dSYM/
-*.pdb
-*.ilk
-
-# --- Intermediate Object Files ---
+# --- Object Files ---
+# Intermediate files generated during compilation
 *.o
 *.obj
 
-# --- System Junk ---
+# --- Debug Symbols ---
+# macOS specific debug folders
+*.dSYM/
+
+# --- IDE & Editor Files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- System Files ---
 .DS_Store
+Thumbs.db
