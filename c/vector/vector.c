@@ -70,3 +70,11 @@ void* vec_pop(vector_t* vec)
     if (!vec || vec->len == 0) return NULL;
     return vec->data[--vec->len];
 }
+static vec_resize(vector_t* vec, size_t new_capacity)
+{
+    if (!vec || new_capacity == 0) return;
+    void **new_data = realloc(vec->data, new_capacity * sizeof(void*));
+    if (!new_data) return;
+    vec->data = new_data;
+    vec->allocation = new_capacity;
+}
