@@ -31,7 +31,7 @@ node_t* sll_get_head(sll_t* list) {
     return list->head;
 }
 
-// O(1) Append using the dummy node swap trick
+// O(1) Append using the dummy node swap
 node_t* sll_append(sll_t* list, void* data) {
     if (!list) return NULL;
     node_t* new_dummy = malloc(sizeof(node_t));
@@ -44,7 +44,6 @@ node_t* sll_append(sll_t* list, void* data) {
     actual_node->data = data;
     actual_node->next = new_dummy;
     
-    // If list was empty, head now points to this first node
     if (list->head == list->dummy) list->head = actual_node;
     
     list->dummy = new_dummy;
@@ -52,7 +51,6 @@ node_t* sll_append(sll_t* list, void* data) {
     return actual_node;
 }
 
-// O(1) Insert after a specific node
 node_t* sll_insert(sll_t* list, node_t* where, void* data) {
     if (!list || !where) return NULL;
     node_t* new_node = malloc(sizeof(node_t));
@@ -66,17 +64,14 @@ node_t* sll_insert(sll_t* list, node_t* where, void* data) {
     return new_node;
 }
 
-// O(1) Removal via Data Stealing
 int sll_remove(sll_t* list, node_t* to_remove) {
     if (!list || !to_remove || to_remove == list->dummy) return -1;
 
     node_t* next_node = to_remove->next;
     
-    // Steal data and pointer from the next node
     to_remove->data = next_node->data;
     to_remove->next = next_node->next;
 
-    // If we just "stole" from the dummy, current node is the new dummy
     if (next_node == list->dummy) {
         list->dummy = to_remove;
     }
