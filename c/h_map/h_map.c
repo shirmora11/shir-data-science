@@ -2,145 +2,192 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <string.h>
+#include <stdint.h>
+#define MAX_WORD_LEN 256
 typedef struct pair_t {
     void *key;
     void *value;
 } pair_t;
 
 typedef struct sll_t {
-    pair_t* kv;//key/value pair
+    pair_t* kv; //key/values pair
     size_t count;
-    struct node_t *next;
+    struct sll_t *next; 
 } sll;
 
-int stringhash(void* key, int num_of_buckets){
-    const char *str = (const char*)key;
-
-    unsigned long hash = 5381;
-    int c;
-    while ((c = (unsigned char)*str++)) {
-        hash = ((hash << 5) + hash) + c;  
-    }
-    return (int)hash % num_of_buckets;
-}
-
 typedef int (*hashfunction_pointer)(void*, int);
-
-
 typedef struct hash_table {
     size_t size;      
     sll **buckets;  
     hashfunction_pointer hashfunc;
-
 } hashmap_t;
 
 
-hashmap_t* hm_create(size_t num_of_buckets/*, hash_func hfunc, compare_func cfunc*/){
-    hashmap_t* map =(hashmap_t*)malloc(sizeof(hashmap_t));
-    map->size = num_of_buckets;
 
-    map->buckets = (sll**)malloc(sizeof(sll*)*num_of_buckets);
-    for (int i=0;i<num_of_buckets;++i){
-        map->buckets[i]=NULL;
+static int stringhash(void* key, int num_of_buckets){
+    const char *str = (const char*)key;
+    unsigned long hash = 531;
+    int c;
+    while ((c = (unsigned char)*str++)) {
+        hash = ((hash << 7) + hash) + c;  
     }
-    map->hashfunc=stringhash;
+    return (int)(hash % num_of_buckets);
+}
+
+hashmap_t* hm_create(size_t num_of_buckets){
+    hashmap_t* map = (hashmap_t*)malloc(sizeof(hashmap_t));
+    map->size = num_of_buckets;
+    map->buckets = (sll**)malloc(sizeof(sll*) * num_of_buckets);
+    for (size_t i = 0; i < num_of_buckets; ++i){
+        map->buckets[i] = NULL;
+    }
+    map->hashfunc = stringhash;
     return map;
 }
 
-
-
-
-
-
-
-
-
-
-int hm_insert(hashmap_t* hash, pair_t* key_value){
+int hm_insert(hashmap_t* hash, void* value) {
     pair_t* newpair = (pair_t*)malloc(sizeof(pair_t));
-    newpair->key= (void*)malloc(strlen(key_value->key)*sizeof(void*)+1);
-    newpair->value = key_value->value;
-    strcpy(newpair->key, (char*)key_value->key);
+    newpair->key = malloc(strlen((char*)value) + 1);
+    strcpy((char*)newpair->key, (char*)value);
+    newpair->value = value;
 
     sll* newnode = (sll*)malloc(sizeof(sll));
     newnode->kv = newpair;  
-    newnode->next = NULL;
-
-    unsigned int bucket = hash->hashfunc(key_value->key, hash->size);
-    if (hash->buckets[bucket]==NULL){
-        hash->buckets[bucket]= newnode;
-
-    }else{
-        newnode->next = hash->buckets[bucket];
-        hash->buckets[bucket]=newnode;
-    }
-
+    
+    int bucket = hash->hashfunc(value, (int)hash->size);
+    
+    newnode->next = hash->buckets[bucket];
+    hash->buckets[bucket] = newnode;
+    return 0;
 }
 
-
-
-
-
-
-
-
-
-static void print_keyValues(hashmap_t *hash) {
-    if (hash == NULL) return;
-
-    for (int i = 0; i < (int)hash->size; ++i) {
-        printf("Bucket %d:", i);
-        
-        // In your code, the nodes are type 'sll'
+void hm_destroy(hashmap_t* hash){
+    for (size_t i = 0; i < hash->size; ++i) {
         sll *current = hash->buckets[i];
-        
-        if (current == NULL) {
-            printf("\t---\n");
-        } else {
-            while (current != NULL) {
-                // Access key via the 'kv' pointer in the 'sll' struct
-                printf(" -> [%s]", (char*)current->kv->key);
-                current = (sll*)current->next; // Cast next to sll*
-            }
-            printf("\n");
+        while (current != NULL) {
+            sll *next = current->next;
+            free(current->kv->key);
+            free(current->kv);
+            free(current);
+            current = next;
         }
     }
+    free(hash->buckets);
+    free(hash);
+}
+
+size_t hm_size(const hashmap_t* hash) {
+    if (hash == NULL) return 0;
+    
+    size_t total_items = 0;
+    for (int i = 0; i < (int)hash->size; ++i) {
+        sll *current = hash->buckets[i];
+        while (current != NULL) {
+            total_items++;
+            current = current->next;
+        }
+    }
+    return total_items;
+}
+
+int hm_is_empty(const hashmap_t* hash){
+    if (hash==NULL){
+        printf(" is empty: 0\n");
+    }else {
+        printf("have something ask get size\n");
+    }
+    return 0;
 }
 
 
+void* hm_find(const hashmap_t* hash, const void* key){
+    void* found_it = NULL;
+    unsigned int index = hash->hashfunc((void*)key,(int)hash->size);
+    sll *current = hash->buckets[index];
+    while (current != NULL) {
+        if (strcmp((char*)current->kv->key,(char*)key)==0){
+            found_it = current->kv->key;
+            break;
+        }
+        current = current->next;
+    }
+    return found_it;
+}
 
 
+void* hm_remove(hashmap_t* hash, const void* key){
+    unsigned int index = hash->hashfunc((void*)key, (int)hash->size);
+    sll *current = hash->buckets[index];
+    sll *prev = NULL;
+    while (current != NULL) {
+        if (strncmp((const char*)current->kv->key, (const char*)key, MAX_WORD_LEN) == 0) {
+            if (prev == NULL) {
+                hash->buckets[index] = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            void* value = current->kv;
+            free(current->kv);
+            free(current);
+            return value;
+        }
+        prev = current;
+        current = current->next;
+    }
+    
+    return NULL;
+}
 
+int hm_foreach(hashmap_t* hash){
+    for (int i = 0; i<(int)hash->size;++i){
+        sll *current = hash->buckets[i];
+        if (current == NULL){
+            printf("bucket%d: \t empty\n",i);
+        }else {
+            while(current != NULL){
+                printf("bucket%d: \t %s\n",i, (char*)current->kv->key);
+                current = current->next;
+            }
+        }   
+    }
+    return 0;
+}
+int hm_upload_dict(hashmap_t* hash){
+    FILE* file = fopen("/usr/share/dict/words", "r");
+    if (!file) {
+        perror("Failed to open dictionary");
+        return -1;
+    }
+    char buffer[MAX_WORD_LEN];
+    while (fgets(buffer, MAX_WORD_LEN, file)) {
 
-/*int hm_insert(map* hash, const void* key, void* value){
-    for ()
-}*/
+        buffer[strcspn(buffer, "\n")] = 0;
+        char* word = strdup(buffer);
+    
+        hm_insert(hash, word);
+    }
 
-typedef int(*for_each_func)(void*, void*); 
-typedef size_t(*hash_func)(void*);
-typedef int(*compare_func)(void*, void*);
+    fclose(file);
+    return 0;
+}
+///void is_sum_found(hash_table * hash){
+    
+////}
 
-/*void hm_destroy(hash_map_t* hash);
-void* hm_remove(hash_map_t* hash, const void* key);// insert of the same key twice caus the value to be update  
-size_t hm_size(const hash_map_t* hash);
-int hm_is_empty(const) hash_map_t* hash);
-void* hm_find(const hash_map_t* hash, const void* key);
-int hm_foreach(hash_map_t* hash, for_each_func func, void* params);*/
 
 int main() {
-    size_t buckets = 8;
+    size_t buckets = 50000;
     hashmap_t* hash = hm_create(buckets);
-    
-    // hm_insert expects a pair_t*, so we wrap the strings:
-    hm_insert(hash, create_pair("mike", NULL));
-    hm_insert(hash, create_pair("dr. house", NULL));
-    hm_insert(hash, create_pair("jeff besos", NULL));
-    hm_insert(hash, create_pair("micheal jordan", NULL));
+    size_t size = hm_size(hash);
+    hm_is_empty(hash);
+    hm_upload_dict(hash);
+    printf("Size of the hash table: %zu\n", size);
+    void* find_zebra = hm_find(hash,"zebra");
+    printf("found zebra at: %d\n",find_zebra);
+    hm_remove(hash,"zebra");
+    hm_foreach(hash);
 
-    print_keyValues(hash);
-    
-    // Note: You should ideally free the pairs and the map here
+    hm_destroy(hash);
     return 0;
 }
