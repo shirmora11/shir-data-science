@@ -1,28 +1,8 @@
-#include <stddef.h>
-#include <stdbool.h>
+#include "h_map.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#define MAX_WORD_LEN 256
-typedef struct pair_t {
-    void *key;
-    void *value;
-} pair_t;
-
-typedef struct sll_t {
-    pair_t* kv; //key/values pair
-    size_t count;
-    struct sll_t *next; 
-} sll;
-
-typedef int (*hashfunction_pointer)(void*, int);
-typedef struct hash_table {
-    size_t size;      
-    sll **buckets;  
-    hashfunction_pointer hashfunc;
-} hashmap_t;
-
 
 
 static int stringhash(void* key, int num_of_buckets){
@@ -146,7 +126,7 @@ int hm_foreach(hashmap_t* hash){
             printf("bucket%d: \t empty\n",i);
         }else {
             while(current != NULL){
-                printf("bucket%d: \t %s\n",i, (char*)current->kv->key);
+                printf("bucket%d:\t %s\n",i, (char*)current->kv->key);
                 current = current->next;
             }
         }   
@@ -169,25 +149,5 @@ int hm_upload_dict(hashmap_t* hash){
     }
 
     fclose(file);
-    return 0;
-}
-///void is_sum_found(hash_table * hash){
-    
-////}
-
-
-int main() {
-    size_t buckets = 50000;
-    hashmap_t* hash = hm_create(buckets);
-    size_t size = hm_size(hash);
-    hm_is_empty(hash);
-    hm_upload_dict(hash);
-    printf("Size of the hash table: %zu\n", size);
-    void* find_zebra = hm_find(hash,"zebra");
-    printf("found zebra at: %d\n",find_zebra);
-    hm_remove(hash,"zebra");
-    hm_foreach(hash);
-
-    hm_destroy(hash);
     return 0;
 }
