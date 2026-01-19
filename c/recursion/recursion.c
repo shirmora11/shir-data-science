@@ -2,12 +2,7 @@
 #include<stdlib.h>
 #include <assert.h>
 #include <string.h>
-
-struct node {
-    int data;
-    struct node *next;
-}node;
-typedef struct node Node;
+#include "recursion.h"
 
 int fibonaci_int(int num){
     int first = 0;
@@ -43,17 +38,6 @@ int rec_strcmp(const char *str1, const char *str2){
     return rec_strcmp(str1+1 , str2+1);
 }
 
-
-unsigned multy(unsigned n, unsigned *arr){
-    int i = i +1;
-        if ((n % arr[i])==0){
-            printf("diveded by %d\n",arr[i]);
-        }
-        else {return 0;}
-    return multy(n,(unsigned int*)arr[i]+1);
-}
-
-
 static void swap(char *s , char *h){
     char temp;
     temp = *s;
@@ -73,54 +57,51 @@ void permutation(char *str , int left , int right){
     }
 }
 
-Node* list(node * node){
-    Node *prev = malloc(sizeof(Node));
-    assert(prev!=0);
+Node* list(){
+    Node *head = malloc(sizeof(Node));
+    assert(head!=0);
     Node * curr = malloc(sizeof(Node));
     assert(curr!=0);
     Node *next_node= malloc(sizeof(Node));
     assert(next_node!=0);
     Node *temp= malloc(sizeof(Node));
     assert(temp !=0);
-    prev->next = curr;
+    head->next = curr;
     curr->next = next_node;
     next_node->next = temp;
     temp->next = NULL;
-    prev->data =1;
+    head->data =1;
     curr->data=2;
     next_node->data=3;
     temp->data = 4;
-    return prev;
+    return head;
 }
-Node* flip_list(node* node){
-    prev->
 
-    return prev;
+Node* flip_list(Node* head){
+    if (head == NULL || head->next == NULL){
+        return head;
+    }
+    Node * head_reverse = flip_list(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return head_reverse;
 }
-int main (){
-    int num = 6;
-    int six = fibonaci_int(num);
-    printf("the six number is %d\n",six);
-    fibonachi_rec(num);
-    ///linked list build from here
-    Node *my_list = create_list();
-    my_list = flip_list(my_list);
-    *int i = 1;
-    while (i < num){
-        fibonachi_rec(num-1) + fibonachi_rec(num -2);
-        printf("%d\n",fibonachi_rec(i));
-        ++i;
-    }*/
-    char str[] = "shir";
-    rec_strlen(str);
-    const char str2[] = "adi";
-    rec_strcmp(str,str2);
-    unsigned arr[] = {5,7,9,13,17};
-    unsigned n = 125;
-    //multy(n,arr);
-    int len = strlen(str);
-    node * node= list(node);
+void foreach(Node* head){
+    Node *curr =head;
+    while (curr != NULL){
+        printf("%d\n",curr->data);
+        curr= curr->next;
+    }
+}
 
-    permutation(str,0,len-1);
-    return 0;
+unsigned multy(unsigned n, unsigned *arr, int size) {
+    if (size <= 0) {
+        return 0;
+    }
+    if ((n % arr[0]) == 0) {
+        printf("divided by %d\n", arr[0]);
+    }
+    else{ return 0;
+    }
+    return multy(n, arr + 1, size - 1);
 }
