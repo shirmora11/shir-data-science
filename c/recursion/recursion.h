@@ -18,6 +18,6 @@ void permutation(char *str, int left, int right);//finds the permutation of a st
 Node* list();//linked list creator
 Node* flip_list(Node* head);//linked list flipper
 void foreach(Node* head);//print each node for visualization
-unsigned multy(unsigned n, unsigned *arr, int size);//if a big number is a mulptiply
+unsigned multy(unsigned bignum, unsigned *arr, int size);//if a big number is a mulptiply
 
 #endif

@@ -94,14 +94,19 @@ void foreach(Node* head){
     }
 }
 
-unsigned multy(unsigned n, unsigned *arr, int size) {
-    if (size <= 0) {
-        return 0;
+unsigned multy(unsigned bignum, unsigned *arr, int size) {
+    if (size <= 0 || bignum <= 1) {
+        return bignum;
     }
-    if ((n % arr[0]) == 0) {
-        printf("divided by %d\n", arr[0]);
+    if (arr[0] <= 1) {
+        return multy(bignum, arr + 1, size - 1);
     }
-    else{ return 0;
+    if ((bignum % arr[0]) == 0) {
+        printf("%u is a factor\n", arr[0]);
+        return multy(bignum / arr[0], arr + 1, size - 1);
+    } 
+    else {
+        printf("%u is NOT a factor\n", arr[0]);
+        return multy(bignum, arr + 1, size - 1);
     }
-    return multy(n, arr + 1, size - 1);
 }

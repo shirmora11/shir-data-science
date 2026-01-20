@@ -28,11 +28,10 @@ int main (){
         free(curr);        
         curr = next;       
     }
-
     unsigned arr[] = {5, 7, 9, 13, 17};
-    unsigned n = 16584;
+    unsigned bignum = 10710;
     int size = sizeof(arr) / sizeof(arr[0]);
-    multy(n, arr, size);
+    multy(bignum, arr, size);
 
     return 0;
 }
