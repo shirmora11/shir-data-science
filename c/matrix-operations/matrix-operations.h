@@ -1,12 +1,13 @@
 
-#include <stdlib.h>
+#include <stddef.h>
+#ifndef MATRIX_H
+#define MATRIX_H
 
-//typedef struct mat_t{
-//    size_t nrow;
-//    size_t ncol;
-//    double** matrix;
-//    
-//} mat_t;
+typedef struct mat_t{
+    size_t nrow;
+    size_t ncol;
+    double** matrix;  
+} mat_t;
 
 #define SUCCESS 0
 #define FAILURE 1
@@ -92,4 +93,10 @@ size_t mat_get_num_of_cols(const mat_t* mat);
 
 //get the value stored in the row and column cordinates of the given matrix
 //expact for a not NULL ptr.
-double mat_get_val(const size_t row_idx, const size_t col_idx);
+double mat_get_val(mat_t* matrix, size_t row_idx, size_t col_idx);
+
+
+///////help function
+void print_matrix(mat_t* m);
+
+#endif
