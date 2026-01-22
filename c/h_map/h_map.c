@@ -26,7 +26,7 @@ hashmap_t* hm_create(size_t num_of_buckets){
     return map;
 }
 
-int hm_insert(hashmap_t* hash, void* value) {
+int hm_insert(hashmap_t* hash, pair_t* value) {
     pair_t* newpair = (pair_t*)malloc(sizeof(pair_t));
     newpair->key = malloc(strlen((char*)value) + 1);
     strcpy((char*)newpair->key, (char*)value);

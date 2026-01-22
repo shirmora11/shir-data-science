@@ -1,11 +1,8 @@
 #ifndef H_MAP_H
 #define H_MAP_H
-
 #include <stddef.h>
 #include <stdbool.h>
-
 #define MAX_WORD_LEN 256
-
 typedef struct pair_t {
     void *key;
     void *value;
