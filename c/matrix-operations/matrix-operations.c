@@ -63,18 +63,16 @@ void mat_destroy(mat_t* matrix)
 
 int matrix_add(const mat_t* matrix_a, const mat_t* matrix_b, mat_t* result)
 {
-    if (matrix_b->nrow != matrix_a->nrow || matrix_a->ncol != matrix_b->ncol)
+    if (!matrix_a || !matrix_b) {return FAILURE;}
+    if (matrix_b->nrow != matrix_a->nrow || matrix_a->ncol != matrix_b->ncol )
     {
         return DIMENSIONS_ERROR;
     }
-    int sum = 0;
     for (size_t i =0; i < matrix_a->nrow; ++i)
     {
         for (size_t j = 0 ; j < matrix_b->ncol; ++j)
         {
-            sum += matrix_a->matrix[i][j] + matrix_b->matrix[i][j];
-            result->matrix[i][j]= sum;
-            sum = 0;
+            result->matrix[i][j] = matrix_a->matrix[i][j] + matrix_b->matrix[i][j];
         }
     }
     return SUCCESS;
@@ -84,11 +82,12 @@ int matrix_add(const mat_t* matrix_a, const mat_t* matrix_b, mat_t* result)
 
 int matrix_multiply(const mat_t* matrix_a, const mat_t* matrix_b, mat_t* result)
 {
+    if (!matrix_a || !matrix_b){return FAILURE;}
     if (matrix_b->nrow != matrix_a->ncol)
     {
-        return FAILURE;
+        return DIMENSIONS_ERROR;
     }
-    int sum = 0;
+    double sum = 0;
     for (size_t i =0; i < matrix_a->nrow; ++i)
     {
         for (size_t j = 0 ; j <matrix_b->ncol; ++j)
@@ -107,7 +106,7 @@ int matrix_multiply(const mat_t* matrix_a, const mat_t* matrix_b, mat_t* result)
 
 int matrix_scalar_multiply(const mat_t* mat, const double scalar, mat_t* result)
 {
-    if (!scalar) {return FAILURE;}
+    if (!mat){return FAILURE;}
     for (size_t i = 0; i < mat->nrow; ++i)
     {
         for (size_t j = 0 ; j < mat->ncol; ++j)
@@ -122,6 +121,7 @@ int matrix_scalar_multiply(const mat_t* mat, const double scalar, mat_t* result)
 
 int matrix_is_same(const mat_t* matrix_a, const mat_t* matrix_b)
 {
+    if (!matrix_a || !matrix_b){return FAILURE;}
     for (size_t i = 0 ;i < matrix_a->nrow; i++)
     {
         for (size_t j = 0 ;j < matrix_a->ncol; j++)
@@ -129,12 +129,13 @@ int matrix_is_same(const mat_t* matrix_a, const mat_t* matrix_b)
             if (matrix_a->matrix[i][j] != matrix_b->matrix[i][j]){return FAILURE;}
         }
     }
-    return SUCCESS;
+    return TRUE;
 }
 
 
 int matrix_transpose(const mat_t* matrix, mat_t* result)
 {    
+    if (!matrix){return FAILURE;}
     for (size_t i = 0 ;i < matrix->nrow; i++)
     {
         for (size_t j = 0 ;j < matrix->ncol; j++)
@@ -147,9 +148,11 @@ int matrix_transpose(const mat_t* matrix, mat_t* result)
 
 double matrix_trace(const mat_t* matrix, int* status)
 {
+    if (!matrix){return FAILURE;}
     if (matrix->ncol != matrix->nrow)
     {
-    *status = DIMENSIONS_ERROR; 
+    *status = DIMENSIONS_ERROR;
+    return FAILURE; 
     }    
     double sum =0;
     for(size_t i = 0 ; i < matrix->nrow ; i++)
@@ -163,7 +166,8 @@ double matrix_trace(const mat_t* matrix, int* status)
 
 int matrix_get_submatrix(const mat_t* matrix, size_t row, size_t col, mat_t* result)
 {
-    if(row > matrix->nrow || col > matrix->ncol)
+    if (!matrix){return FAILURE;}
+    if(row >= matrix->nrow || col > matrix->ncol)
     {
         return DIMENSIONS_ERROR;
     }
@@ -188,13 +192,13 @@ int matrix_get_submatrix(const mat_t* matrix, size_t row, size_t col, mat_t* res
 
 
 
-
-
 double matrix_determinant(const mat_t* matrix, int* status)
 {
+    if (!matrix){return FAILURE;}
     if (matrix->ncol != matrix->nrow)
     {
-        return DIMENSIONS_ERROR;
+        *status = DIMENSIONS_ERROR;
+        return FAILURE;
     }
     int cols = matrix->ncol;
     int rows = matrix->nrow;
@@ -241,6 +245,7 @@ double matrix_norm(const mat_t* matrix)
 
 int matrix_set(mat_t* matrix, double* elements, size_t size)
 {
+    if (!matrix){return FAILURE;}
     if(size > (matrix->ncol * matrix->nrow)) {return FAILURE;}
     size_t cols = matrix->ncol;
     size_t rows = matrix->nrow;
@@ -287,12 +292,16 @@ void print_matrix(mat_t* m)
 }
 int matrix_inverse(const mat_t* matrix, mat_t* result)
 {
+    if (!matrix){return FAILURE;}
     int status = SUCCESS;
-    if (matrix->nrow != result->ncol) {return FAILURE;}
+    if (matrix->nrow != matrix->ncol) {return FAILURE;}
     mat_t * sub_temp = mat_create(matrix->nrow-1, matrix->ncol-1);
     mat_t * temp_1 = mat_create(matrix->nrow, matrix->ncol);
     mat_t * temp_2 = mat_create(matrix->nrow, matrix->ncol);
     if (!sub_temp || !temp_1 || !temp_2){return FAILURE;}
+    mat_destroy(sub_temp);
+    mat_destroy(temp_1);
+    mat_destroy(temp_2);
     for (size_t i = 0; i < matrix->nrow; i++) {
         for (size_t j = 0; j < matrix->ncol; j++) {
             if (matrix_get_submatrix(matrix, i, j, sub_temp) == SUCCESS) {
