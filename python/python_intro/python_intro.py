@@ -56,6 +56,7 @@ def password_check(password):
     print(f'complexity for your password is: {complexity} out of 4')
 
 def sum_divisors(num):
+    """function that returns the sum of divisors"""
     sum = 0
     for i in range(1,num):
         if num % i == 0:
@@ -63,6 +64,7 @@ def sum_divisors(num):
     print(f'the sum of all divisors are:{sum}')
 
 def bills(change):
+    """function that checks how much change do you need to return"""
     currency = {
         200: "two hundred",
         100: "one hundred",
@@ -85,6 +87,7 @@ def bills(change):
 bills(432)
 
 def prime(num):
+    """function that returns if a number is prime or not"""
     count = 0
     for i in range(1,num):
         if num % i == 0:
