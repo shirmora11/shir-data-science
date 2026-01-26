@@ -63,50 +63,26 @@ def sum_divisors(num):
     print(f'the sum of all divisors are:{sum}')
 
 def bills(change):
-    bills_coins = 0
-    two_hun = 0
-    one_hun = 0
-    fifty = 0
-    twenty = 0
-    ten = 0
-    five = 0
-    two = 0
-    one = 0
-    for i in range(1,change):
-        if change > 200:
-            two_hun += 1
-            bills_coins +=1
-            change -= 200
-        elif change > 100:
-            one_hun += 1
-            bills_coins +=1
-            change -= 100
-        elif change > 50:
-            fifty += 1
-            bills_coins += 1
-            change -= 50
-        elif change > 20:
-            twenty += 1
-            bills_coins +=1
-            change -= 20
-        elif change > 10:
-            ten += 1
-            bills_coins +=1
-            change -= 10
-        elif change > 5:
-            five += 1
-            bills_coins +=1
-            change -= 5
-        elif change > 2:
-            two += 1
-            bills_coins += 1
-            change -= 2
-        elif change > 2:
-            one += 1
-            bills_coins += 1
-            change -= 1
-    print(f"the change is:{bills_coins} this anount of bills and coins on the minimum")
-    print(f"this is the breakdown:{two_hun} two hundred , {one_hun} one hundred , {fifty} fifty , {twenty} twenty , {ten} ten , {five} five , {two} two , {one} one ")
+    currency = {
+        200: "two hundred",
+        100: "one hundred",
+        50: "fifty",
+        20: "twenty",
+        10: "ten",
+        5: "five",
+        2: "two",
+        1: "one"
+        }
+
+    answers = {}
+    for value in currency:
+        if change >= value:
+            num_of_bills = change // value
+            answers[currency[value]] = num_of_bills
+            change = change % value
+    for name, amount in answers.items():
+        print(f"You need {amount} of {name}")
+bills(432)
 
 def prime(num):
     count = 0
