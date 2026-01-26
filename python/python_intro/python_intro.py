@@ -20,11 +20,13 @@ def number_flip(number):
 
 
 def temp_convertion(temp):
+    """function that convert the temp from Celsius to Fahrenheit """
     new_temp = temp * 1.8 +32
     print(f'new_temp is:{new_temp}')
 
 
 def leap_year(year):
+    """function that checks if its leap year"""
     if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
         print(f'{year} is a leap year')
     else :
