@@ -1,10 +1,10 @@
-
-
-
 def remove_list(list):
-    """function that clears list"""
-    new_list = [item for item in list if isinstance(item, str) == True]
-    return new_list
+    """function that clears list from non string"""
+    clean_list = []
+    for item in list:
+        if type(item) == str:
+            clean_list.append(item)
+    return clean_list
 def string_to_letters(string):
     """function that breakdown string to letters"""
     answer = {}
@@ -16,15 +16,14 @@ def two_lists(first,second):
     """function that turns two lists to one with all the
     elements that were in both"""
     third = list(set(first) & (set(second)))
-    print(third)
+    return third
 def unique_list(dict):
-    """function that recive a dictionary and return a list with all unique values"""
+    """function that receive a dictionary and return a list with all unique values"""
     list = (set(dict.values()))
-    print(list)
     return list
 def left_rotation(list):
     """function that receive a list and rotate it left one time"""
-    new_list = [list[1:] + list[0:1]]
+    new_list = [list[1:] + list[:1]]
 def jump_remove(list):
     """a function that jumps 2 places every time until the list is empty"""
     while (len(list) != 0):
@@ -36,7 +35,7 @@ def jump_remove(list):
 def dict_to_list(dict):
     """a function that receive a dict and turns the key value pair to a list of tuples"""
     listof = tuple(dict.items())
-    print(listof)
+    return listof
 def max_min(dict):
     """function that gives the max and min of the dictionary"""
     ma = max(dict.values())
@@ -47,6 +46,6 @@ def max_min(dict):
 def not_common_letters(first,second):
     """a function that prints all the letters of the first string that wasn't used in the second one"""
     third = [item for item in first if item not in second]
-    print(third)
+    return third
 
 
