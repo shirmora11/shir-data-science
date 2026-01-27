@@ -3,7 +3,8 @@
 
 def remove_list(list):
     """function that clears list"""
-    return list.clear()
+    new_list = [item for item in list if isinstance(item, str) == True]
+    return new_list
 def string_to_letters(string):
     """function that breakdown string to letters"""
     answer = {}
@@ -11,10 +12,11 @@ def string_to_letters(string):
         answer[char] = answer.get(char, 0)+1
     print(f"{answer}")
 
-def two_lists(first, second):
+def two_lists(first,second):
     """function that turns two lists to one with all the
     elements that were in both"""
-    third = [item for item in first if item in second]
+    third = list(set(first) & (set(second)))
+    print(third)
 def unique_list(dict):
     """function that recive a dictionary and return a list with all unique values"""
     list = (set(dict.values()))
@@ -22,7 +24,7 @@ def unique_list(dict):
     return list
 def left_rotation(list):
     """function that receive a list and rotate it left one time"""
-    new_list = list[::-1]
+    new_list = [list[1:] + list[0:1]]
 def jump_remove(list):
     """a function that jumps 2 places every time until the list is empty"""
     while (len(list) != 0):
@@ -42,7 +44,6 @@ def max_min(dict):
     key_max = [key for key, value in dict.items() if value == ma]
     key_min = [key for key, value in dict.items() if value == mi]
     print(key_max,key_min)
-max_min({1:2,2:3,3:5,6:10,7:0})
 def not_common_letters(first,second):
     """a function that prints all the letters of the first string that wasn't used in the second one"""
     third = [item for item in first if item not in second]
