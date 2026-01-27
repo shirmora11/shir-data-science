@@ -39,7 +39,10 @@ def max_min(dict):
     """function that gives the max and min of the dictionary"""
     ma = max(dict.values())
     mi = min(dict.values())
-    print(ma,mi)
+    key_max = [key for key, value in dict.items() if value == ma]
+    key_min = [key for key, value in dict.items() if value == mi]
+    print(key_max,key_min)
+max_min({1:2,2:3,3:5,6:10,7:0})
 def not_common_letters(first,second):
     """a function that prints all the letters of the first string that wasn't used in the second one"""
     third = [item for item in first if item not in second]
