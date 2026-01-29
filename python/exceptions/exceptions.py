@@ -14,7 +14,7 @@ def password_check(password):
             has_upper = True
         elif char.islower():
             has_lower = True
-        elif not char.isalnum():
+        elif char in '#@&%' :
             has_special = True
     if has_number != True:
         raise Exception("has to have a number")
@@ -26,5 +26,5 @@ def password_check(password):
         raise Exception("has to have a special character")
     complexity = has_upper + has_special + has_lower + has_number
     print(f'complexity for your password is: {complexity} out of 4')
-password = "Shirmor11!"
+password = "Shirmor11&"
 password_check(password)
