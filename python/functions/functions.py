@@ -1,6 +1,5 @@
 from functools import reduce
 
-
 def remove_words(lists, *words):
     """function that remove specific words from a given list"""
     new_list = list(filter(lambda word: word not in words, lists))
@@ -9,7 +8,7 @@ def remove_words(lists, *words):
 
 def num_sort(lists):
     """function that returns a sorted list of string(numbers)"""
-    lists.sort(key=lambda x: int(x))
+    return lists.sort()
 
 
 def sum_of_list(lists):
@@ -20,8 +19,9 @@ def sum_of_list(lists):
 
 
 def square_list(list):
-    """function that squares all the numbers in the list"""
-    new_list = [item for item in (map(lambda x: x * x, list))]
+    """function that squares all the even numbers in the list"""
+    new_list =[x*x for x  in list if (x%2) == 0]
+    return new_list
 
 
 def discount(dic):
@@ -53,10 +53,19 @@ def luhn_algo(code):
             if num > 9:
                 num -= 9
         new_list.append(num)
-    print(new_list)
     if sum(new_list) % 10 == 0:
         print("valid")
+        return True
     else:
         print("not valid")
-    print(sum(new_list))
-luhn_algo([7, 1, 4, 2, 7, 3, 9, 8, 7, 1, 3])
+        return False
+
+
+def roman(symbol):
+    dict ={'I' : 1 , 'IV' : 4 , 'V' : 5 , 'IX' : 9 , 'X' : 10 , 'XL':40, 'L' : 50 , 'XC' :90 , 'C' : 100 , 'CD' :400 , 'D': 500 , 'CM': 900 , 'M': 1000}
+    answer = 0
+    for s in symbol:
+        val = dict.get(s, 0)
+        answer += val
+    print(f"The total sum is: {answer}")
+    return answer
