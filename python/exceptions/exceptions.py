@@ -1,7 +1,7 @@
 def password_check(password):
     """function that return the complexity of a number but has to receive it as a str"""
 
-    if len(password) < 8:
+    if len(password) <= 8:
         raise Exception("password need to be 8 character or bigger")
     has_number = False
     has_upper = False
