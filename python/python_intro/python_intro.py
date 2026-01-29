@@ -1,36 +1,35 @@
 def dup_check(string, letter):
     """function that checks if there is a duplicate in string"""
     count = 0
-    for i in range(len(string)):
-        if letter == string[i]:
-            count += 1
+    for s in string:
+        count = string.count(letter)
     print(f"count shows {count}")
-
-
+    return count
 
 
 def number_flip(number):
     """function that flips the number"""
-    size = len(str(number))
     string_num = str(number)
     reversed =''
     for i in range(number):
         reversed = string_num[::-1]
-    print(f"number  reversed is: {reversed}")
+    return reversed
 
 
 def temp_convertion(temp):
     """function that convert the temp from Celsius to Fahrenheit """
-    new_temp = temp * 1.8 +32
-    print(f'new_temp is:{new_temp}')
+    new_temp = temp * 1.8 + 32
+    return new_temp
 
 
 def leap_year(year):
     """function that checks if its leap year"""
     if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
         print(f'{year} is a leap year')
+        return True
     else :
         print(f"{year} not a leap year")
+        return False
 
 
 def password_check(password):
@@ -38,7 +37,7 @@ def password_check(password):
 
     if len(password) < 8:
         print("error password too short")
-        return
+        return False
 
     has_number = False
     has_upper = False
@@ -55,7 +54,9 @@ def password_check(password):
         elif not char.isalnum():
             has_special = True
     complexity = has_upper + has_special + has_lower + has_number
-    print(f'complexity for your password is: {complexity} out of 4')
+    if complexity == 4:
+        return True
+    else: return False
 
 def sum_divisors(num):
     """function that returns the sum of divisors"""
@@ -86,7 +87,6 @@ def bills(change):
             change = change % value
     for name, amount in answers.items():
         print(f"You need {amount} of {name}")
-bills(432)
 
 def prime(num):
     """function that returns if a number is prime or not"""
