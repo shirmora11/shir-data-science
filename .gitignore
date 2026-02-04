@@ -1,2 +1,26 @@
-output/
+cat <<EOF > .gitignore
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# C/C++ Compiled binaries & Debug symbols
+*.o
+*.out
 *.dSYM/
+output/
+build/
+bin/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Database files (if you have local SQLite test files)
+*.sqlite3
+*.db
+EOF
