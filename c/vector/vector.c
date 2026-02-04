@@ -22,11 +22,11 @@ vector_t* vec_create(size_t capacity)
     vec->len = 0;
     return vec;
 }
-/// resizes the vector to the new capacity if new_capacity is 0 or vec is NULL, does nothing
+
 static void vec_resize(vector_t* vec, size_t new_capacity)
 {
     if (!vec) return;
-    // Ensure we don't try to realloc to 0
+
     if (new_capacity == 0) new_capacity = 1; 
 
     void **new_data = realloc(vec->data, new_capacity * sizeof(void*));
@@ -35,34 +35,32 @@ static void vec_resize(vector_t* vec, size_t new_capacity)
         vec->allocation = new_capacity;
     }
 }
-/// Destroys the vector and frees associated memory and its elements
+
 void vec_destroy(vector_t* vec)
 {
     if (!vec) return;
     free(vec->data);
     free(vec);       
 }
-/// Gets the current number of elements in the vector if vec is NULL, returns 0
 size_t vec_get_size(const vector_t* vec) {
     return vec ? vec->len : 0;
 }
-/// Retrieves the element at the specified index if index is valid, returns NULL otherwise
+
 void* vec_get_element(const vector_t* vec, const size_t idx) {
-    if (idx >= vec->len) return NULL; // Basic bounds checking
+    if (idx >= vec->len) return NULL; // bounds checking
     return vec->data[idx];
 }
-/// Gets the current capacity of the vector if vec is NULL, returns 0
+
 size_t vec_get_capacity(const vector_t* vec)
 {
     return vec ? vec->allocation : 0;
 }
-/// Sets the element at the specified index if index is valid returns NULL otherwise
+
 void vec_set_element(vector_t* vec, size_t idx, void* element)
 {
     if (!vec || idx >= vec->len) return;
     vec->data[idx] = element;
 }
-/// Adds a new element to the end of the vector if value not NULL
 void vec_push(vector_t* vec, void* new_element)
 {
     if (!vec) return;
@@ -73,7 +71,7 @@ void vec_push(vector_t* vec, void* new_element)
 
     vec->data[vec->len++] = new_element;
 }
-/// Removes and returns the last element of the vector if not empty, returns NULL otherwise
+
 void* vec_pop(vector_t* vec) {
     if (vec == NULL || vec->len == 0) {
         return NULL; 
