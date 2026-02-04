@@ -1,5 +1,0 @@
----
-triple:          'arm64-apple-darwin'
-binary-path:     h_map_array
-relocations:     []
-...
