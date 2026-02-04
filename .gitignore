@@ -1,62 +1,75 @@
-# macOS system files
+### --- OS Metadata ---
 .DS_Store
 .AppleDouble
 .LSOverride
+Thumbs.db
 
-# C/C++ Compiled binaries & Debug symbols
+### --- IDEs & Editors ---
+.idea/
+.vscode/
+*.swp
+*.swo
+
+### --- C/C++ Build Artifacts ---
+# Compiled Object files
 *.o
-*.out
-*.dSYM/
-output/
-build/
-bin/
+*.obj
+*.chi
+*.pdb
+*.idb
 
-# Python artifacts
-__pycache__/
-*.py[cod]
-*$py.class
-.venv/
-venv/
-ENV/
-
-# Database files (if you have local SQLite test files)
-*.sqlite3
-*.db
-# C Compiler specific (GCC/Clang/Xcode)
+# Precompiled Headers
 *.pch
 *.gch
+
+# Dependency files
 *.d
 *.su
-*.idb
-*.pdb
 
-# Executables
-*.exe
-*.out
-*.app
-# Debugger & Profiling files
+# Debug & Profiling
+*.dSYM/
 vgcore.*
 .gdb_history
 .lldb_history
 *.prof
+gmon.out
 
-# Compiled Python extras
-.ipynb_checkpoints
-.python-version
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Local Environment / Secrets
-.env
-.venv
-env/
-venv/
-*.bak
-*.tmp
-
-# C++ / CMake (in case you move to C++)
+# Build Systems (CMake/Make)
 CMakeCache.txt
 CMakeFiles/
 CMakeScripts/
 cmake_install.cmake
 Makefile
+build/
+bin/
+output/
+
+### --- Compiled Binaries (The "vector" problem) ---
+# התעלמות מכל קובץ שאין לו סיומת (קבצי הרצה ב-Linux/macOS)
+*
+!*.*
+!*/
+
+# החרגת קבצי הרצה נפוצים אחרים
+*.exe
+*.out
+*.app
+
+### --- Python Environment ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.python-version
+.ipynb_checkpoints
+
+### --- Database & Temp Files ---
+*.sqlite3
+*.db
+*.bak
+*.tmp
+*.log
+.env
