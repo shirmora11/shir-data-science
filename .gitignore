@@ -22,3 +22,41 @@ ENV/
 # Database files (if you have local SQLite test files)
 *.sqlite3
 *.db
+# C Compiler specific (GCC/Clang/Xcode)
+*.pch
+*.gch
+*.d
+*.su
+*.idb
+*.pdb
+
+# Executables
+*.exe
+*.out
+*.app
+# Debugger & Profiling files
+vgcore.*
+.gdb_history
+.lldb_history
+*.prof
+
+# Compiled Python extras
+.ipynb_checkpoints
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Local Environment / Secrets
+.env
+.venv
+env/
+venv/
+*.bak
+*.tmp
+
+# C++ / CMake (in case you move to C++)
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
