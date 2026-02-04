@@ -30,4 +30,29 @@ obj/
 .vscode/
 .idea/
 *.DYSM
+# --- C Trash ---
+# Compiled binaries (executables)
+*.out
+a.out
+my_program
+h_map_array
+matrix_test
+slist_test
+vector_test
+max_subarray
 
+# Output directories and compiled objects
+output/
+*.o
+*.pch
+
+# macOS Debug Symbols (The biggest trash in your list)
+*.dSYM/
+
+# --- Python Trash ---
+__pycache__/
+*.py[cod]
+
+# --- General Trash ---
+.DS_Store
+a.gitconfig
