@@ -1,31 +1,25 @@
 #include <stdio.h>
+#include <math.h>
 #include "array.h"
-int main() {
-    //ex1 checking
-    int matrix[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    int results[3];
-    calculateRowSums(3, 3, matrix, results);
-    for (int i = 0; i < 3; i++) {
-        printf("Sum of row %d: %d\n", i, results[i]);
+int josephus(int n, int k)
+{
+    if (n == 1)
+        return 1;
+    else
+        /* The position returned by josephus(n - 1, k) is
+           adjusted because the recursive call josephus(n -
+           1, k) considers the original position
+           k%n + 1 as position 1 */
+        return (josephus(n - 1, k) + k - 1) % n + 1;
+}
+
+int josephus_fast(int total_people) {
+    int highest_power_of_2 = 1;
+    while (highest_power_of_2 <= total_people) {
+        highest_power_of_2 *= 2;
     }
-
-    //ex2 checking
-    printf("Recursive (n=5, k=2): %d\n", josephus(5, 2));
-    printf("Fast (n=100): %d\n", josephus_fast(100));
-
-    //ex3 checking
-    data_types();
-
-    // ex4 checking
-    int count = 0;
-    char **cloned = clone_env_manual(&count);
-    if (cloned) {
-        printf("Successfully cloned %d environment variables (lowercase).\n", count);
-        for (int i = 0; i < (count > 5 ? 5 : count); i++) {
-            printf("%d: %s\n", i, cloned[i]);
-        }
-        printf("... (freeing memory)\n");
-        print_and_free(cloned);
-    }
-    return 0;
+    highest_power_of_2 /= 2; 
+    int rem_people = total_people - highest_power_of_2;
+    int survivor_pos = (2 * rem_people) + 1;
+    return survivor_pos;
 }

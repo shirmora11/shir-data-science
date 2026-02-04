@@ -1,58 +1,43 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Environments (The big stuff)
-.venv/
-venv/
-env/
-bin/
-obj/
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# Data and large files (Keep your raw data out of Git!)
-*.csv
-*.json
-*.sql
-*.sqlite
-*.zip
-*.gz
-
-# macOS specific
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# IDEs
-.vscode/
-.idea/
-*.DYSM
-# --- C Trash ---
-# Compiled binaries (executables)
-*.out
-a.out
-my_program
-h_map_array
-matrix_test
-slist_test
-vector_test
-max_subarray
-
-# Output directories and compiled objects
-output/
-*.o
-*.pch
-
-# macOS Debug Symbols (The biggest trash in your list)
-*.dSYM/
-
-# --- Python Trash ---
-__pycache__/
-*.py[cod]
-
-# --- General Trash ---
-.DS_Store
+output
 a.gitconfig
+node_modules/
+
+.env
+
+.DS_Store
+
+Thumbs.db
+
+dist/
+
+build/
+
+out/
+
+*.log
+
+*.tmp
+
+*.swp
+
+.vscode/
+
+.idea/
+
+*.suo
+
+*.user
+
+venv/
+
+.python-version
+
+__pycache__/
+
+coverage/
+
+.sass-cache/
+
+bin/
+
+obj/
