@@ -1,0 +1,6 @@
+a.out
+3_expression
+test_program
+*.dSYM/
+.DS_Store
+*.o
