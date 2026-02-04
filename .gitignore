@@ -1,0 +1,23 @@
+# IDEs
+.idea/
+.vscode/
+
+# MacOS noise
+.DS_Store
+**/.DS_Store
+
+# C/C++ build artifacts
+*.dSYM/
+*.o
+*.out
+*.pch
+output/
+**/*.dSYM/
+**/output/
+
+# Python
+__pycache__/
+*.pyc
+
+# Personal configs
+a.gitconfig
